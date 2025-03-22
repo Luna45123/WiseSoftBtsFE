@@ -1,0 +1,63 @@
+<div class="modal fade" bsModal #ModalPrice id="exampleModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Price Calculation and Travel Time</h5>
+        </div>
+        <div class="modal-body">
+          <div class="fareText">
+            <div class="container">
+              <div class="header">Price Calculation and Travel Time</div>
+              <p><strong>รายละเอียดบัตรค่าโดยสาร</strong></p>
+              <div class="route">
+                <span><strong>{{startStation}}</strong> | {{startStationThaiName}} →
+                  <strong>{{endStation}}</strong> | {{endStationThaiName}}</span>
+              </div>
+
+              <div class="ticket">
+                <img src="/assets/OneCard1.png" alt="single">
+                <div class="details">
+                  <strong>บัตรโดยสารเที่ยวเดียว</strong>
+                  <br>Single Journey Card
+                </div>
+                <div class="price">{{fare?.single}} บาท</div>
+              </div>
+
+              <div class="ticket">
+                <img src="/assets/StudentCard1.png" alt="student">
+                <div class="details">
+                  <strong>บัตรโดยสารสำหรับนักเรียน นักศึกษาแบบเติมเงิน</strong>
+                  <br>Stored-Value Pass For Student
+                </div>
+                <div class="price">{{fare?.student}} บาท</div>
+              </div>
+
+              <div class="ticket">
+                <img src="/assets/PrepaidCard1.png" alt="adult">
+                <div class="details">
+                  <strong>บัตรโดยสารสำหรับบุคคลทั่วไปแบบเติมเงิน</strong>
+                  <br>Stored-Value Pass For Adult
+                </div>
+                <div class="price">{{fare?.adult}} บาท</div>
+              </div>
+
+              <div class="ticket">
+                <img src="/assets/OldCard1.png" alt="senior">
+                <div class="details">
+                  <strong>บัตรโดยสารสำหรับผู้สูงอายุ</strong>
+                  <br>Stored-Value Pass For Senior
+                </div>
+                <div class="price">{{fare?.senior}} บาท</div>
+              </div>
+
+              <p class="note">หมายเหตุ* บัตรโดยสารแบบเติมเงินสามารถใช้ค่าโดยสารได้ตามเงื่อนไขของผู้ให้บริการ</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

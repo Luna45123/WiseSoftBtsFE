@@ -1,0 +1,42 @@
+<div class="container">
+  <h2>เลือกเส้นทาง BTS</h2>
+
+  <!-- Dropdown เลือกสาย BTS -->
+  <select class="form-select" (change)="selectStartLine($event)">
+    <option value="" disabled selected>-- กรุณาเลือกสาย --</option>
+    <option value="sukhumvit">🚄 สายสุขุมวิท (Sukhumvit Line)</option>
+    <option value="silom">🚄 สายสีลม (Silom Line)</option>
+  </select>
+
+  <!-- Dropdown เลือกสถานีต้นทาง -->
+  <select class="form-select" *ngIf="stationStart.length > 0" [(ngModel)]="selectedStationStart">
+    <option value="" disabled selected>-- กรุณาเลือกสถานีต้นทาง --</option>
+    <option *ngFor="let station of stationStart" [value]="station.stationName">
+      {{ station.stationId }} - {{ station.stationName }} - {{station.stationNameThai}}
+    </option>
+  </select>
+
+  <select class="form-select" (change)="selectEndLine($event)">
+    <option value="" disabled selected>-- กรุณาเลือกสาย --</option>
+    <option value="sukhumvit">🚄 สายสุขุมวิท (Sukhumvit Line)</option>
+    <option value="silom">🚄 สายสีลม (Silom Line)</option>
+  </select>
+
+  <!-- Dropdown เลือกสถานีปลายทาง -->
+  <select class="form-select" *ngIf="stationEnd.length > 0" [(ngModel)]="selectedStationEnd">
+    <option value="" disabled selected>-- กรุณาเลือกสถานีปลายทาง --</option>
+    <option *ngFor="let station of stationEnd" [value]="station.stationName">
+      {{ station.stationId }} - {{ station.stationName }} - {{station.stationNameThai}}
+    </option>
+  </select>
+
+  <!-- ปุ่มคำนวณค่าโดยสาร -->
+  <button class="btn btn-primary" (click)="calculateFare()" [disabled]="!selectedStationStart || !selectedStationEnd">
+    คำนวณค่าโดยสาร
+  </button>
+
+
+  <app-detail-modal #seeDetailRef [startStation]="stationStartName" [endStation]="stationEndName" [distance]="distance"
+    [time]="time" [startStationThaiName]="stationStartNameThai"
+    [endStationThaiName]="stationEndNameThai" [fare]="fare"></app-detail-modal>
+</div>

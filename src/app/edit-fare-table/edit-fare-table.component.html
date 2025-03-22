@@ -1,0 +1,69 @@
+<nz-table #basicTable [nzBordered]="true" [nzData]="fareList" [nzSize]="'middle'" [nzShowPagination]="false">
+    <thead>
+        <tr>
+            <th nzWidth="10%">ID</th>
+            <th nzWidth="25%">Number of Stations</th>
+            <th nzWidth="20%">Fare</th>
+            <th nzWidth="20%" class="text-center">
+                <button class="btn btn-secondary" (click)="addData()">
+                    Add
+                </button>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of fareList; index as i">
+            <td [attr.data-color]="data.color">{{ data.id }}</td>
+            <td [attr.data-color]="data.color">{{ data.stationNumber }}</td>
+            <td [attr.data-color]="data.color">{{ data.fare }}</td>
+            <td [attr.data-color]="data.color" class="text-center">
+                <button class="btn btn-success edit" (click)="edit(data, i)">
+                    Edit
+                </button>
+                <button class="btn btn-danger edit" (click)="delete(i)">
+                    Delete
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+<div class="text-center mt-3">
+    <button class="btn btn-primary submit-btn" (click)="submit()">Submit</button>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" bsModal #seeModal="bs-modal" id="exampleModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Station Fare</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>ID</label>
+                    <input nz-input type="text" class="form-control" placeholder="Enter ID" [(ngModel)]="fareData.id"
+                        disabled />
+                </div>
+                <div class="form-group">
+                    <label>Number of Stations</label>
+                    <input nz-input type="text" class="form-control" placeholder="Enter Station Count"
+                        [(ngModel)]="fareData.numberStation" />
+                </div>
+                <div class="form-group">
+                    <label>Fare</label>
+                    <input nz-input type="text" class="form-control" placeholder="Enter Fare"
+                        [(ngModel)]="fareData.fare" />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-custom" (click)="closeModel()">Close</button>
+                    <button type="button" class="btn btn-custom" (click)="saveDataStationPrice()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

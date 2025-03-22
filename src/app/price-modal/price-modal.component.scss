@@ -1,0 +1,81 @@
+.container {
+  width: auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin: 20px auto;
+}
+
+
+.fareText {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  text-align: start;
+}
+
+
+.header {
+  background: #003f7f;
+  color: white;
+  padding: 10px;
+  border-radius: 8px 8px 0 0;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+
+.btn {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.route {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.route img {
+  width: 30px;
+  height: 30px;
+}
+
+.ticket {
+  display: flex;
+  align-items: center;
+  background: #f1f1f1;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 75%;
+}
+
+.ticket img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.ticket .details {
+  flex-grow: 1;
+}
+
+.ticket .price {
+  font-weight: bold;
+  color: #333;
+}
+
+.note {
+  font-size: 12px;
+  color: #777;
+  margin-top: 10px;
+}

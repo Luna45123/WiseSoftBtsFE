@@ -1,0 +1,90 @@
+
+  .container {
+    width: auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    margin: 20px auto;
+  }
+  
+  .section p{
+    font-size: 25px;
+    font-weight: bold;
+  }
+  
+  .header {
+    background: #003f7f;
+    color: white;
+    padding: 10px;
+    border-radius: 8px 8px 0 0;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .station {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .station img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .station span {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .route-info {
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: center;
+  }
+  .btn {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .btn.green {
+    max-width: 200px;
+    background: #28a745;
+    color: white;
+  }
+  
+  .route-info {
+    background: #eef7e5;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .route-info span {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  
+  .time {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+//   .station {
+//     font-size: 12px;
+//   }

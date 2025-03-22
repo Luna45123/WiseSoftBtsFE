@@ -1,0 +1,55 @@
+.container {
+    margin: 2% auto;
+    width: 43%;
+    border: 2px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: block;
+    justify-content: center;
+}
+
+nz-table {
+    border-radius: 10px;
+
+    tr th {
+        border: 1px solid rgb(180, 180, 180);
+        text-align: center;
+        font-weight: bold;
+        background-color: #f8f9fa;
+        padding: 12px;
+    }
+
+    tr td {
+        border: 1px solid rgb(200, 200, 200);
+        text-align: center;
+        padding: 10px;
+    }
+}
+.edit{
+    margin-right: 10px;
+}
+
+
+.add-btn {
+    width: 100px;
+    text-align: center;
+    font-size: 14px;
+}
+
+
+.edit-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+}
+
+.submit-btn {
+    width: 120px;
+    font-size: 16px;
+    padding: 8px;
+    margin-bottom: 10%;
+}

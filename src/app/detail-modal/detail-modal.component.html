@@ -1,0 +1,42 @@
+<div class="modal fade" bsModal #seeDetail id="exampleModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Routes and Fares</h5>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="header">Routes and Fares</div>
+            <div class="section">
+              <p><strong>ข้อมูลการเดินทาง</strong></p>
+              <div class="station">
+                <img src="/assets/pin_from.png" alt="N24">
+                <span><strong>{{startStation}}</strong> | {{startStationThaiName}}</span>
+              </div>
+              <div class="station">
+                <img src="/assets/pin_to.png" alt="N22">
+                <span><strong>{{endStation}}</strong> | {{endStationThaiName}}</span>
+              </div>
+
+              
+            </div>
+
+            <div class="route-info">
+              <p>จำนวน {{distance}} สถานี</p>
+              <p>เวลาเดินทาง ~ {{time}} นาที</p>
+            </div>
+           
+            <div class="buttons">
+              <div class="btn green" (click)="openPriceModal()">ดูอัตราค่าโดยสาร</div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-price-modal #priceModalRef [startStation]="startStation" [endStation]="endStation" [startStationThaiName]="startStationThaiName" [endStationThaiName]="endStationThaiName" [fare]="fare"></app-price-modal>

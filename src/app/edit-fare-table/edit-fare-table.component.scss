@@ -1,0 +1,62 @@
+nz-table {
+    border-radius: 10px;
+
+    tr th {
+        border: 1px solid rgb(180, 180, 180);
+        text-align: center;
+        font-weight: bold;
+        background-color: #f8f9fa;
+        padding: 12px;
+    }
+
+    tr td {
+        border: 1px solid rgb(200, 200, 200);
+        text-align: center;
+        padding: 10px;
+    }
+}
+.edit{
+    margin-right: 10px;
+}
+
+// ✅ ปรับปุ่ม Add
+.add-btn {
+    width: 100px;
+    text-align: center;
+    font-size: 14px;
+}
+
+// ✅ ปรับปุ่ม Edit ให้ตรงกลาง
+.edit-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+}
+
+// ✅ ปรับแต่ง Submit Button
+.submit-btn {
+    width: 120px;
+    font-size: 16px;
+    padding: 8px;
+    margin-bottom: 10%;
+}
+
+td[data-color="delete"] {
+    background-color: #ffd1e0;
+}
+.modal-body {
+    padding: 15px;
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    input {
+        border-radius: 5px;
+        padding: 8px;
+        width: 100%;
+        font-size: 14px;
+    }
+}

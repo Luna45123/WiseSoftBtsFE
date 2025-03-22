@@ -1,0 +1,61 @@
+<nz-table #basicTable [nzBordered]="true" [nzData]="extensionFareList" [nzSize]="'middle'" [nzShowPagination]="false">
+    <thead>
+        <tr>
+            <th nzWidth="10%">ID</th>
+            <th nzWidth="20%">Price</th>
+            <th nzWidth="20%">customerTypeName</th>
+            <th nzWidth="20%">edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of extensionFareList; index as i">
+            <td>{{ data.id }}</td>
+            <td>{{ data.price }}</td>
+            <td>{{ data.customerTypeName }}</td>
+            <td class="text-center">
+                <button class="btn btn-success" (click)="editExtension(data, i)">
+                    Edit
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+
+<div class="text-center mt-3">
+    <button class="btn btn-primary submit-btn" (click)="submitEx()">Submit</button>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" bsModal #exFareModal="bs-modal" id="exampleModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Extension Fare</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>ID</label>
+                    <input nz-input type="text" class="form-control" placeholder="Enter ID" [(ngModel)]="fareExData.id"
+                        disabled />
+                </div>
+                <div class="form-group">
+                    <label>Price</label>
+                    <input nz-input type="text" class="form-control" placeholder="Enter Station Count"
+                        [(ngModel)]="fareExData.exPrice" />
+                </div>
+                <div class="form-group">
+                    <label>customerType</label>
+                    <input nz-input type="text" class="form-control" placeholder="Enter Fare"
+                        [(ngModel)]="fareExData.exType" disabled />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-custom" (click)="closeExFareModal()">Close</button>
+                    <button type="button" class="btn btn-custom" (click)="saveDataExFare()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
