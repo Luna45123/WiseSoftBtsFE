@@ -17,6 +17,9 @@ export class AuthService {
   private currentUserRoles = new BehaviorSubject<string[]>([]);
   private accessTokenSubject = new BehaviorSubject<string | null>(null);
 
+  public isLoggedIn$ = new BehaviorSubject<boolean>(this.isLoggedIn());
+  public isAdmin$ = new BehaviorSubject<boolean>(this.isAdmin());
+
   constructor(private http: HttpClient, private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {
     this.loadUserRoles();
   }
@@ -81,7 +84,7 @@ export class AuthService {
   }
 
   refreshToken() {
-    if(isPlatformBrowser(this.platformId)){
+    if (isPlatformBrowser(this.platformId)) {
       return this.http.post<any>('http://localhost:8080/api/auth/refresh', {}, { withCredentials: true }).pipe(
         map(response => {
           console.log("New AccessToken:", response.token);
@@ -91,12 +94,12 @@ export class AuthService {
       );
     }
     return of();
-    
+
 
   }
 
   setAccessToken(token: string | null) {
-    if(isPlatformBrowser(this.platformId)){
+    if (isPlatformBrowser(this.platformId)) {
       this.accessTokenSubject.next(token);
       if (token) {
         localStorage.setItem('token', token);
@@ -104,13 +107,16 @@ export class AuthService {
         localStorage.removeItem('token');
       }
     }
-    
+    this.isLoggedIn$.next(this.isLoggedIn());
+    this.isAdmin$.next(this.isAdmin());
+
   }
 
   getAccessToken() {
-    if(isPlatformBrowser(this.platformId)){
+    if (isPlatformBrowser(this.platformId)) {
       return this.accessTokenSubject.value || localStorage.getItem('token');
     }
     return of();
   }
+
 }

@@ -3,6 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { CommonModule } from '@angular/common';
 import { routes } from '../app.routes';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-manu2',
   imports: [CommonModule, RouterModule],
@@ -11,18 +12,17 @@ import { routes } from '../app.routes';
 })
 export class Manu2Component {
   title = 'table';
+  isLoggedIn$!: Observable<boolean>;
+  isAdmin$!: Observable<boolean>;
 
   constructor(public router: Router, public authService: AuthService) {
   }
 
-  isLoggedIn(): boolean {
-    return this.authService.isLoggedIn();
+  ngOnInit(): void {
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
+    this.isAdmin$ = this.authService.isAdmin$;
   }
-
-  isAdmin(): boolean {
-    return this.authService.isAdmin();
-  }
-
+  
   logout() {
     this.authService.logout();
   }
