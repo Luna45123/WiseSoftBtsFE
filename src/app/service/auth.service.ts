@@ -105,8 +105,6 @@ export class AuthService {
   }
 
   setAccessToken(token: string | null) {
-    console.log("🔥 setAccessToken() called with:", token);
-
     if (isPlatformBrowser(this.platformId)) {
       this.accessTokenSubject.next(token);
 
