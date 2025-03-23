@@ -139,7 +139,6 @@ export class AuthService {
       const token = localStorage.getItem('token');
       if (token) {
         if (this.jwtHelper.isTokenExpired(token)) {
-          console.warn("Token หมดอายุ → ลบออก");
           this.refreshToken().subscribe({
             next: (newToken) => {
               if (newToken) {
