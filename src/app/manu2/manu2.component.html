@@ -1,20 +1,14 @@
 <nav>
     <p>
-      <a routerLink="/">
-        <button class="btn btn-light mt-3">Home</button>
-      </a>
-  
-      <a *ngIf="isAdmin$ | async" routerLink="/admin">
-        <button class="btn btn-light mt-3">Admin Panel</button>
-      </a>
-  
-      <button *ngIf="isLoggedIn$ | async" (click)="logout()" class="btn btn-light mt-3">
-        🚪 Logout
-      </button>
-  
-      <button *ngIf="!(isLoggedIn$ | async)" routerLink="/login" class="btn btn-light mt-3">
-        🔑 Login
-      </button>
+        <a routerLink="/">
+            <button class="btn btn-light mt-3">Home</button>
+        </a>
+
+        <a *ngIf="isAdmin$ | async" routerLink="/admin">
+            <button class="btn btn-light mt-3">Admin Panel</button>
+        </a>
+
+        <button *ngIf="isLoggedIn$ | async" (click)="logout()" class="btn btn-light mt-3">Logout</button>
+        <button *ngIf="!(isLoggedIn$ | async)" routerLink="/login" class="btn btn-light mt-3">Login</button>
     </p>
-  </nav>
-  
+</nav>

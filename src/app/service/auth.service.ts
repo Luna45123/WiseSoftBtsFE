@@ -41,17 +41,23 @@ export class AuthService {
       if (token) {
         const decodedToken = this.jwtHelper.decodeToken(token);
         if (Array.isArray(decodedToken.roles) && typeof decodedToken.roles[0] === 'object') {
-          this.currentUserRoles.next(decodedToken.roles.map((role: { authority: Role; }) => role.authority));
+          const roles = decodedToken.roles.map((role: { authority: Role; }) => role.authority);
+          this.currentUserRoles.next(roles);
+          this.isAdmin$.next(roles.includes('ROLE_ADMIN'));
         } else if (Array.isArray(decodedToken.roles)) {
           this.currentUserRoles.next(decodedToken.roles);
+          this.isAdmin$.next(decodedToken.roles.includes('ROLE_ADMIN'));
         } else {
           console.log("Unexpected roles format:", decodedToken.roles);
         }
       } else {
         console.log("No Token Found in localStorage");
+        this.currentUserRoles.next([]);
+        this.isAdmin$.next(false);
       }
     }
   }
+  
 
   login(username: string, password: string) {
     if (isPlatformBrowser(this.platformId)) {
@@ -101,15 +107,19 @@ export class AuthService {
   setAccessToken(token: string | null) {
     if (isPlatformBrowser(this.platformId)) {
       this.accessTokenSubject.next(token);
+  
       if (token) {
         localStorage.setItem('token', token);
       } else {
         localStorage.removeItem('token');
       }
+  
+     
+      this.loadUserRoles();
     }
+  
     this.isLoggedIn$.next(this.isLoggedIn());
     this.isAdmin$.next(this.isAdmin());
-
   }
 
   getAccessToken() {
@@ -117,6 +127,47 @@ export class AuthService {
       return this.accessTokenSubject.value || localStorage.getItem('token');
     }
     return of();
+  }
+
+  public checkTokenExpiration() {
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('token');
+  
+      if (token && this.jwtHelper.isTokenExpired(token)) {
+        console.log("⛔ Token หมดอายุ → พยายาม refresh");
+  
+        this.refreshToken().subscribe({
+          next: (newToken) => {
+            if (newToken) {
+              console.log("✅ ได้ Token ใหม่:", newToken);
+              this.setAccessToken(newToken);
+            } else {
+              console.warn("❌ ได้ token ใหม่เป็น null → logout");
+              this.logout();
+            }
+          },
+          error: (err) => {
+            console.error("❌ Refresh token ไม่สำเร็จ → logout", err);
+            this.logout();
+          }
+        });
+  
+      } else {
+        console.log("✅ Token ยังไม่หมดอายุ");
+      }
+    }
+  }
+
+  public initializeAuthState() {
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('token');
+  
+      if (token && !this.jwtHelper.isTokenExpired(token)) {
+        this.setAccessToken(token); // ✅ ใช้ method เดิมให้ BehaviorSubject อัปเดต
+      } else {
+        this.setAccessToken(null); // ❌ ถ้าไม่มีหรือหมดอายุ → ล้างออก
+      }
+    }
   }
 
 }

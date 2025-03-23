@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Manu2Component } from "./manu2/manu2.component";
 import { HeaderComponent } from "./header/header.component";
+import { AuthService } from './service/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +11,12 @@ import { HeaderComponent } from "./header/header.component";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'table';
 
-  constructor(public router: Router) {} // ✅ ถ้าใช้ router ใน HTML ต้องเป็น public
+  constructor(public router: Router,private authService:AuthService) { } // ✅ ถ้าใช้ router ใน HTML ต้องเป็น public
+  ngOnInit(): void {
+    this.authService.initializeAuthState();
+    this.authService.checkTokenExpiration();
+  }
 }
