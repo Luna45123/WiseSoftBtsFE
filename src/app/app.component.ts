@@ -18,8 +18,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.authService.initializeAuthState();
 
-    setTimeout(() => {
-      this.authService.checkTokenExpiration();
-    }, 100); // ✅ ชัวร์ว่า initializeAuthState() ทำงานเสร็จก่อน
+    // setTimeout(() => {
+    //   this.authService.checkTokenExpiration();
+    // }, 100); // ✅ ชัวร์ว่า initializeAuthState() ทำงานเสร็จก่อน
   }
 }

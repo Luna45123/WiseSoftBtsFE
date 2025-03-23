@@ -40,7 +40,6 @@ export class AuthService {
       const token = localStorage.getItem('token');
       if (token) {
         const decodedToken = this.jwtHelper.decodeToken(token);
-        console.log("📦 Token Payload:", decodedToken);
         if (Array.isArray(decodedToken.roles) && typeof decodedToken.roles[0] === 'object') {
           const roles = decodedToken.roles.map((role: { authority: Role; }) => role.authority);
           this.currentUserRoles.next(roles);
@@ -58,7 +57,7 @@ export class AuthService {
       }
     }
   }
-  
+
 
   login(username: string, password: string) {
     if (isPlatformBrowser(this.platformId)) {
@@ -68,7 +67,7 @@ export class AuthService {
         this.router.navigate(['/']);
       });
     }
-    return of();
+    return of(null);
 
   }
 
@@ -86,7 +85,7 @@ export class AuthService {
         this.router.navigate(['/']);
       });
     }
-    return of();
+    return of(null);
 
   }
 
@@ -100,119 +99,69 @@ export class AuthService {
         })
       );
     }
-    return of();
+    return of(null);
 
 
   }
 
   setAccessToken(token: string | null) {
     console.log("🔥 setAccessToken() called with:", token);
-  
+
     if (isPlatformBrowser(this.platformId)) {
       this.accessTokenSubject.next(token);
-  
+
       if (token) {
         localStorage.setItem('token', token);
-        console.log("✅ Token stored in localStorage");
       } else {
         localStorage.removeItem('token');
-        console.warn("🧹 Token removed from localStorage");
       }
-  
+
       this.loadUserRoles();
     }
-  
+
     this.isLoggedIn$.next(this.isLoggedIn());
     this.isAdmin$.next(this.isAdmin());
   }
-  
+
 
   getAccessToken() {
     if (isPlatformBrowser(this.platformId)) {
       const token = this.accessTokenSubject.value || localStorage.getItem('token');
-      console.log("📦 getAccessToken():", token);
       return token;
     }
     return null;
   }
-  
 
-  checkTokenExpiration() {
-    if (isPlatformBrowser(this.platformId)) {
-      const token = this.getAccessToken();
-  
-      if (!token) {
-        console.warn("⚠️ ไม่มี token → ข้าม checkTokenExpiration");
-        return;
-      }
-  
-      if (this.jwtHelper.isTokenExpired(token)) {
-        console.log("⛔ Token หมดอายุ → พยายาม refresh");
-  
-        this.refreshToken().subscribe({
-          next: (newToken) => {
-            if (newToken) {
-              console.log("✅ ได้ Token ใหม่:", newToken);
-              this.setAccessToken(newToken);
-            } else {
-              console.warn("❌ ได้ token ใหม่เป็น null → logout");
-              this.logout();
-            }
-          },
-          error: (err) => {
-            console.error("❌ Refresh token ไม่สำเร็จ → logout", err);
-            this.logout();
-          }
-        });
-      } else {
-        console.log("✅ Token ยังไม่หมดอายุ");
-      }
-    }
-  }
-  
-  
+
 
   initializeAuthState() {
     if (isPlatformBrowser(this.platformId)) {
       const token = localStorage.getItem('token');
-      console.log("🌐 initializeAuthState → token in localStorage:", token);
-  
       if (token) {
-        const exp = this.jwtHelper.getTokenExpirationDate(token);
-        const now = new Date();
-  
-        console.log(`🕒 Token Expiration: ${exp}`);
-        console.log(`🕒 Current Time: ${now}`);
-  
-        // ✅ Allow 5 seconds skew
-        if (exp && exp.getTime() - now.getTime() > -5000) {
-          console.log("✅ Token valid (allow 5s skew) → setAccessToken");
-          this.setAccessToken(token);
-        } else {
-          console.warn("⛔ Token หมดอายุ → ลบออก");
+        if (this.jwtHelper.isTokenExpired(token)) {
+          console.warn("Token หมดอายุ → ลบออก");
           this.refreshToken().subscribe({
             next: (newToken) => {
               if (newToken) {
                 console.log("✅ ได้ Token ใหม่:", newToken);
                 this.setAccessToken(newToken);
               } else {
-                console.warn("❌ ได้ token ใหม่เป็น null → logout");
+                console.warn("ได้ token ใหม่เป็น null → logout");
                 this.logout();
               }
             },
             error: (err) => {
-              console.error("❌ Refresh token ไม่สำเร็จ → logout", err);
+              console.error("Refresh token ไม่สำเร็จ → logout", err);
               this.logout();
             }
           });
+        }else{
+          this.isLoggedIn$.next(this.isLoggedIn());
+          this.isAdmin$.next(this.isAdmin());
         }
       } else {
-        console.warn("⚠️ ยังไม่เจอ token → ยังไม่ set หรือยังไม่ login");
+        console.warn("ยังไม่เจอ token → ยังไม่ set หรือยังไม่ login");
       }
     }
   }
-  
-  
-  
-  
 }
