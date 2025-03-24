@@ -1,10 +1,10 @@
 <div class="login-container">
-    <h2>🔑 Login</h2>
-    <form (submit)="login(); $event.preventDefault()">
+    <h2>🔑 singup</h2>
+    <form (submit)="singup(); $event.preventDefault()">
       <input type="text" [(ngModel)]="username" name="username" required placeholder="Username">
       <input type="password" [(ngModel)]="password" name="password" required placeholder="Password">
-      <p routerLink="/singup">sing up</p>
-      <button type="submit">Login</button>
+      <p routerLink="/login">login</p>
+      <button type="submit">singup</button>
     </form>
     <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
   </div>

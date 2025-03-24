@@ -19,9 +19,10 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
     catchError(error => {
       if (
         error.status === 403 &&
-        !req.url.includes('/auth/login') &&
-        !req.url.includes('/auth/refresh') &&
-        !req.url.includes('/auth/logout')
+        !req.url.includes('api/auth/login') &&
+        !req.url.includes('api/auth/refresh') &&
+        !req.url.includes('api/auth/logout')&&
+        !req.url.includes('api/auth/singup')
       ) {
         console.warn("Token หมดอายุ → พยายาม refresh");
         return authService.refreshToken().pipe(

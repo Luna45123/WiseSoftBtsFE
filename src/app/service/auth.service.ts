@@ -59,13 +59,33 @@ export class AuthService {
   }
 
 
+  // login(username: string, password: string) {
+  //   if (isPlatformBrowser(this.platformId)) {
+  //     return this.http.post<any>('http://localhost:8080/api/auth/login', { username, password }, { withCredentials: true }).subscribe(response => {
+  //       this.setAccessToken(response.token);
+  //       this.loadUserRoles();
+  //       this.router.navigate(['/']);
+  //     });
+  //   }
+  //   return of(null);
+
+  // }
+
   login(username: string, password: string) {
     if (isPlatformBrowser(this.platformId)) {
-      return this.http.post<any>('http://localhost:8080/api/auth/login', { username, password }, { withCredentials: true }).subscribe(response => {
-        this.setAccessToken(response.token);
-        this.loadUserRoles();
-        this.router.navigate(['/']);
-      });
+      return this.http.post<any>('http://localhost:8080/api/auth/login', { username, password }, { withCredentials: true }).subscribe(
+        {
+          next: (response) => {
+            this.setAccessToken(response.token);
+            this.loadUserRoles();
+            this.router.navigate(['/']);
+          },
+          error:()=>{
+            alert("ไม่สามารถเข้าสู้ระบบได้")
+          }
+
+        }
+      );
     }
     return of(null);
 
@@ -87,6 +107,19 @@ export class AuthService {
     }
     return of(null);
 
+  }
+
+  singup(username:string,password:string){
+    return this.http.post<any>('http://localhost:8080/api/auth/register',{username,password}).subscribe({
+      next:() => {
+        alert('สมัครสมาชิคสำเร็จ');
+        this.router.navigate(['/login']);
+      },
+      error:(error) =>{
+        console.log(error);
+        alert('สมัครสมาชิคไม่สำเร็จ');
+      }
+    });
   }
 
   refreshToken() {
@@ -152,7 +185,7 @@ export class AuthService {
               this.logout();
             }
           });
-        }else{
+        } else {
           this.isLoggedIn$.next(this.isLoggedIn());
           this.isAdmin$.next(this.isAdmin());
         }

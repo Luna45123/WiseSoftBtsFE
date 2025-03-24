@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common'; // ✅ ใช้ CommonModule แทน
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -10,7 +10,8 @@ import { AuthService } from '../service/auth.service';
   selector: 'app-login',
   imports: [CommonModule,
     FormsModule,
-    HttpClientModule],
+    HttpClientModule,
+    RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -18,7 +19,7 @@ export class LoginComponent {
   username = '';
   password = '';
   errorMessage = '';
-  constructor(private authService:AuthService) { }
+  constructor(private authService:AuthService,public router: Router) { }
 
   login() {
     this.authService.login(this.username,this.password);
