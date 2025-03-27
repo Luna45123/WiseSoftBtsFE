@@ -59,17 +59,6 @@ export class AuthService {
   }
 
 
-  // login(username: string, password: string) {
-  //   if (isPlatformBrowser(this.platformId)) {
-  //     return this.http.post<any>('http://localhost:8080/api/auth/login', { username, password }, { withCredentials: true }).subscribe(response => {
-  //       this.setAccessToken(response.token);
-  //       this.loadUserRoles();
-  //       this.router.navigate(['/']);
-  //     });
-  //   }
-  //   return of(null);
-
-  // }
 
   login(username: string, password: string) {
     if (isPlatformBrowser(this.platformId)) {
